@@ -1,0 +1,1 @@
+\copy public.ref_municipios_tom_ibge (codigo_municipio_tom, codigo_municipio_ibge, municipio_tom, municipio_ibge, uf) FROM '{caminho}/qa-data-validation-postgres/data/municipios.csv' WITH (FORMAT csv, HEADER true, DELIMITER ';', ENCODING 'WIN1252');
