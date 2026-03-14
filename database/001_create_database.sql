@@ -1,1 +1,0 @@
-CREATE DATABASE qa_data_lab;

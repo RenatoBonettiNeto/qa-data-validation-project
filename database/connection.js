@@ -1,11 +1,11 @@
 import fs from "fs";
 import path from "path";
-import pkg from "pg";
+import pg from "pg";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const { Client } = pkg;
+const { Client } = pg;
 
 const sqlPath = path.resolve("database");
 
@@ -21,22 +21,11 @@ export async function setupDatabase() {
 
   await adminClient.connect();
 
-  try {
-    const createDb = fs.readFileSync(`${sqlPath}/migrations/001_create_database.sql`).toString();
-    await adminClient.query(createDb);
-    console.log("Executado: 001_create_database.sql");
-  } catch (error) {
-
-    if (error.code === "42P04") {
-      console.log("Database já existe, continuando...");
-    } else {
-      throw error;
-    }
-
-  }
+  const createDb = fs.readFileSync(`${sqlPath}/migrations/001_create_database.sql`).toString();
+  await adminClient.query(createDb);
+  console.log("Executado: 001_create_database.sql");
 
   await adminClient.end();
-
 
   const client = new Client({
     host: process.env.DB_HOST,
@@ -50,7 +39,6 @@ export async function setupDatabase() {
 
   const createTable = fs.readFileSync(`${sqlPath}/migrations/002_create_table.sql`).toString();
   await client.query(createTable);
-
   console.log("Executado: 002_create_table.sql");
 
   await client.end();
