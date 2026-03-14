@@ -1,0 +1,29 @@
+{
+  "name": "qa-data-validation-project",
+  "version": "1.0.0",
+  "description": "Projeto prático de **Quality Assurance** focado em validação de dados, testes de API e automação de testes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RenatoBonettiNeto/qa-data-validation-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RenatoBonettiNeto/qa-data-validation-project/issues"
+  },
+  "homepage": "https://github.com/RenatoBonettiNeto/qa-data-validation-project#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
