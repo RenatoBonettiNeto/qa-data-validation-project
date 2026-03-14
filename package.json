@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "db:setup": "node src/setupDatabase.js",
+    "db:seed": "node src/importCsv.js",
     "test": "echo \"Nenhum teste configurado\" && exit 0"
   },
   "repository": {
@@ -27,6 +29,7 @@
   },
   "homepage": "https://github.com/RenatoBonettiNeto/qa-data-validation-project#readme",
   "dependencies": {
+    "csv-parser": "^3.2.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "pg": "^8.20.0"

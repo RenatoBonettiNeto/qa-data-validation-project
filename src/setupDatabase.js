@@ -1,57 +1,14 @@
-import fs from "fs";
-import path from "path";
-import pkg from "pg";
-import dotenv from "dotenv";
+import { closeDatabase, setupDatabase } from "../database/connection.js";
 
-dotenv.config();
-
-const { Client } = pkg;
-
-const sqlPath = path.resolve("database");
-
-export async function setupDatabase() {
-
-  const adminClient = new Client({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: "postgres"
-  });
-
-  await adminClient.connect();
-
+async function run() {
   try {
-    const createDb = fs.readFileSync(`${sqlPath}/migrations/001_create_database.sql`).toString();
-    await adminClient.query(createDb);
-    console.log("Executado: 001_create_database.sql");
+    await setupDatabase();
   } catch (error) {
-
-    if (error.code === "42P04") {
-      console.log("Database já existe, continuando...");
-    } else {
-      throw error;
-    }
-
+    console.error("Erro ao configurar banco:", error);
+    process.exitCode = 1;
+  } finally {
+    await closeDatabase();
   }
-
-  await adminClient.end();
-
-
-  const client = new Client({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  });
-
-  await client.connect();
-
-  const createTable = fs.readFileSync(`${sqlPath}/migrations/002_create_table.sql`).toString();
-  await client.query(createTable);
-
-  console.log("Executado: 002_create_table.sql");
-
-  await client.end();
 }
+
+run();

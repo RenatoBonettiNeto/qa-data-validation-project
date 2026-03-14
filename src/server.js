@@ -1,13 +1,11 @@
+import "dotenv/config";
 import express from "express";
-import { setupDatabase } from "./setupDatabase.js";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   try {
-    await setupDatabase();
-
     app.get("/", (req, res) => {
       res.json({ message: "Servidor funcionando" });
     });
